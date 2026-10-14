@@ -1,0 +1,32 @@
+[github]
+owner = "your-organisation"
+reviewer = "your-github-login"
+repositories = ["your-repository"]
+
+[watch]
+poll_interval_seconds = 60
+review_command = ""  # Any new top-level comment from the PR author
+wait_for_checks = true
+
+[agent]
+command = ["pi"]
+# Uses skills/pr-review/SKILL.md bundled with this checkout.
+# Optional: skill = "/absolute/path/to/custom/pr-review/SKILL.md"
+timeout_seconds = 3600
+thinking = "high"
+launcher = "fixed"
+# Optional: model = "provider/model". Omit to use your existing Pi defaults.
+
+[slack]
+webhook_file = "~/.config/pr-review-watcher/slack-webhook-url"
+owner_email = "you@example.com"
+report_format = "brief"
+welcome_enabled = true
+# Optional: welcome_message = "Your own plain-text welcome message..."
+
+[users.your-github-login]
+enabled = false
+slack_email = "you@example.com"
+
+[paths]
+state = "~/.local/state/pr-review-watcher"

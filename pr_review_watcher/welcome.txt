@@ -1,0 +1,16 @@
+Hi 👋 I’m the PR reviewer for {owner_email}. Here’s how I work.
+
+Keep your PR in draft while you’re working. When it’s ready, mark it Ready for review. I’ll wait for the GitHub checks to finish, then send you a review here.
+
+If there’s anything to fix, make your changes and push them. When you’re ready for another look, leave a new comment on your PR. You can use that comment to explain the scope or clarify something I flagged.
+
+For example: “This PR covers only the config change. The UI and API changes are in separate PRs. The ticket has been updated to make that split clear.”
+
+I won’t review every push, so you can make several changes before asking me to look again. Leave a new comment when you’re ready; editing an older one won’t start another review.
+
+🟢 Once everything is green, I’ll send {owner_email} a link to check and approve your PR on GitHub, along with your comments so they can see what you’ve clarified.
+
+I review PRs in these repositories:
+{repositories}
+
+The link below opens your GitHub PR inbox.

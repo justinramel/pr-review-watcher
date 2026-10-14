@@ -1,0 +1,39 @@
+name: Checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.11', '3.14']
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Watcher and installer tests
+        run: python -m unittest discover -s tests -v
+      - name: Jira reader tests
+        run: python -m unittest discover -s skills/jira-read-ticket/tests -v
+      - name: Review tools tests
+        run: node --test skills/pr-review/scripts/review-tools.test.mjs
+      - name: Syntax checks
+        run: |
+          bash -n setup.sh
+          node --check pr_review_watcher/review-output.mjs
+          python -m compileall -q pr_review_watcher install.py

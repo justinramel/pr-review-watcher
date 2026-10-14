@@ -1,0 +1,4 @@
+interface:
+  display_name: "Jira Read Ticket"
+  short_description: "Read EA Flood Jira tickets"
+  default_prompt: "Use $jira-read-ticket to read and summarize an EA Flood Jira ticket."

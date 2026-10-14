@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+*.db
+*.db-*
+*.log
+.env
+.env.*
+!.env.example
+config.toml
+slack-webhook-url
+*cookies*.txt
+secrets/
+state/
+runs/
