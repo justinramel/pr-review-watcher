@@ -3,23 +3,48 @@
 A local service that monitors configured GitHub repositories for draft-to-ready transitions,
 runs the bundled Pi `pr-review` skill and sends reports through an existing Slack workflow.
 
-Requires Linux, Python 3.11+, Node, authenticated `gh`, and authenticated Pi.
-The review skill, schema, review tools and Jira reader are bundled under `skills/`.
-No Python dependencies.
+## Fresh machine quick start
 
-## Install and run
+Use Linux with a systemd user session. Install Git, Python 3.11+, Node 24 and
+GitHub CLI first. There are no Python dependencies to install.
 
-Run the guided setup from the cloned checkout:
+Install Pi; version `1.2.0` is the version tested with this watcher:
 
 ```bash
+npm install -g --ignore-scripts @earendil-works/pi-coding-agent@1.2.0
+```
+
+Clone the repository and run the guided setup:
+
+```bash
+git clone https://github.com/justinramel/pr-review-watcher.git
+cd pr-review-watcher
 ./setup.sh
 ```
 
-The wizard checks local tools, guides GitHub/Pi sign-in, explains how to create the
-Slack webhook workflow, helps with Jira cookies, configures this machine, runs
-access checks, and offers to enable the user service. You need Python 3.11+, Node,
-GitHub CLI, Pi, and a Linux systemd user session installed first. It uses the Python
-standard library and does not install packages system-wide.
+The wizard guides you through GitHub and Pi login, repositories, Slack email,
+webhook, Jira cookies and starting the background service. Use a GitHub account
+with access to the repositories you want reviewed. You can reuse an existing
+Slack workflow URL. The review skills and Jira reader are bundled in the repo.
+
+After setup, check the status and watch the logs:
+
+```bash
+pr-review-watcher status
+pr-review-watcher logs --follow
+```
+
+Wait for the first scan to finish, then test by adding a new comment to one of
+your configured open, ready PRs. New installations watch only your own PRs first.
+
+If you are replacing another machine, stop its watcher before starting this one
+to avoid duplicate reviews. Run this on the old machine:
+
+```bash
+systemctl --user stop pr-review-watcher.service
+```
+
+## Setup details
 
 Configuration prompts include your GitHub login, Slack email, organisation,
 repositories, Pi executable and Jira cookie path. New configurations watch only
